@@ -1,0 +1,58 @@
+/* ../MarketCar/MarketCar.css */
+
+/* Estiliza o container principal */
+div {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  /* Estiliza os títulos */
+  h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+  
+  /* Estiliza a lista de cursos e itens do carrinho */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  /* Estiliza cada item da lista */
+  li {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  /* Estiliza os botões */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Estiliza o botão ao passar o mouse */
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estiliza os parágrafos dentro da lista */
+  p {
+    margin: 5px 0;
+  }
+  
+  /* Estiliza o valor total */
+  h1 {
+    font-size: 20px;
+    margin-top: 20px;
+  }
+  

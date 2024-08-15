@@ -1,16 +1,16 @@
-'use client'
-import React, { useState } from 'react'
-import '../MarketCar/MarketCar.css'
+'use client';
+import React, { useState } from 'react';
+import './MarketCar.css';
 
 interface ICurso {
-    id: number,
-    titulo: string,
-    preco: number
+    id: number;
+    titulo: string;
+    preco: number;
 }
 
 interface IShoppingItem {
-    produto: ICurso,
-    quantidade: number
+    produto: ICurso;
+    quantidade: number;
 }
 
 const cursos: ICurso[] = [
@@ -18,60 +18,55 @@ const cursos: ICurso[] = [
     { id: 2, titulo: 'Samsung S23', preco: 4000.00 },
     { id: 3, titulo: 'Iphone 14', preco: 4500.00 },
     { id: 4, titulo: 'Samsung S22', preco: 2900.00 }
-]
+];
 
 const formatarPreco = (preco: number): string => preco.toFixed(2);
 
 const CarMarketPage = () => {
-    const [shoppingCurso, setShoppingCurso] = useState<IShoppingItem[]>([])
+    const [shoppingCurso, setShoppingCurso] = useState<IShoppingItem[]>([]);
 
     const handleAddCurso = (id: number) => {
-        const curso = cursos.find((curso) => curso.id === id)
-        const cursoExisteShopping = shoppingCurso.find(item => item.produto.id === id)
+        const curso = cursos.find((curso) => curso.id === id);
+        if (!curso) return;
 
-        if (cursoExisteShopping) {
-            const newShoppingCurso: IShoppingItem[] = shoppingCurso.map(item => {
-                if (item.produto.id === id) {
-                    return {
-                        ...item,
-                        quantidade: item.quantidade + 1
+        setShoppingCurso(prevShoppingCurso => {
+            const cursoExisteShopping = prevShoppingCurso.find(item => item.produto.id === id);
+
+            if (cursoExisteShopping) {
+                return prevShoppingCurso.map(item => {
+                    if (item.produto.id === id) {
+                        return {
+                            ...item,
+                            quantidade: item.quantidade + 1
+                        };
                     }
-                }
-                return item
-            })
-            setShoppingCurso(newShoppingCurso)
-            return
-        }
+                    return item;
+                });
+            }
 
-        const carItem: IShoppingItem = {
-            produto: curso!,
-            quantidade: 1
-        }
-
-        const newShoppingCurso: IShoppingItem[] = [...shoppingCurso, carItem]
-        setShoppingCurso(newShoppingCurso)
-    }
+            return [...prevShoppingCurso, { produto: curso, quantidade: 1 }];
+        });
+    };
 
     const handleRemoveCurso = (id: number) => {
-        const ExisteCursoShopping = shoppingCurso.find((item) => item.produto.id === id)
+        setShoppingCurso(prevShoppingCurso => {
+            const ExisteCursoShopping = prevShoppingCurso.find(item => item.produto.id === id);
 
-        if (ExisteCursoShopping!.quantidade > 1) {
-            const newShoppingCurso: IShoppingItem[] = shoppingCurso.map(item => {
-                if (item.produto.id === id) {
-                    return {
-                        ...item,
-                        quantidade: item.quantidade - 1
+            if (ExisteCursoShopping!.quantidade > 1) {
+                return prevShoppingCurso.map(item => {
+                    if (item.produto.id === id) {
+                        return {
+                            ...item,
+                            quantidade: item.quantidade - 1
+                        };
                     }
-                }
-                return item
-            })
-            setShoppingCurso(newShoppingCurso)
-            return
-        }
+                    return item;
+                });
+            }
 
-        const newShoppingCurso: IShoppingItem[] = shoppingCurso.filter(item => item.produto.id !== id)
-        setShoppingCurso(newShoppingCurso)
-    }
+            return prevShoppingCurso.filter(item => item.produto.id !== id);
+        });
+    };
 
     const handlePrint = () => {
         const printWindow = window.open('', '', 'height=600,width=800');
@@ -109,9 +104,7 @@ const CarMarketPage = () => {
         }
     };
 
-    const totalCurso = shoppingCurso.reduce((total, item) => {
-        return total + (item.produto.preco * item.quantidade);
-    }, 0)
+    const totalCurso = shoppingCurso.reduce((total, item) => total + (item.produto.preco * item.quantidade), 0);
 
     return (
         <div>
@@ -139,7 +132,7 @@ const CarMarketPage = () => {
                 ))}
             </ul>
         </div>
-    )
-}
+    );
+};
 
-export default CarMarketPage
+export default CarMarketPage;

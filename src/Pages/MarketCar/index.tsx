@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import './MarketCar.css';
+import './marketcar.css';
 
 interface ICurso {
     id: number;
